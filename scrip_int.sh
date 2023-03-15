@@ -1,10 +1,12 @@
 #!/bin/bash
 
-# Chemin du fichier d'entrée
-input_file="input-lignes-vides.txt"
+# Vérification de la présence du fichier d'entrée
+if [ ! -f "input-lignes-vides.txt" ]; then
+  echo "Le fichier input-lignes-vides.txt n'existe pas"
+  exit 1
+fi
 
-# Chemin du fichier de sortie
-output_file="output.txt"
+# Suppression des lignes vides et des espaces en début et fin de ligne
+sed '/^[[:space:]]*$/d' input-lignes-vides.txt | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' > output.txt
 
-# Supprimer les lignes vides et écrire le résultat dans le fichier de sortie
-sed '/^$/d' $input_file > $output_file
+echo "Le fichier output.txt a été créé avec succès"
